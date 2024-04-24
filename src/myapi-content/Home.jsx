@@ -1,17 +1,23 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import style from './css/Main.module.css'
 import axios from 'axios'
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
+import {AuthContext} from '../auth/AuthProvider'
 
 
 
 export default function Home() {
 
+    const {ctg} = useParams
+
     const [products, setProduct] = useState([]);
     const [count, setCount] = useState(1);
     // const [carousel, setCarousel] = useState();
     const [loading, setLoading] = useState(false)
+    const [search, setSearch] = useState(`/${ctg}`)
     const load = document.querySelector(".load")
+   
+    const {setSearchv} = useContext(AuthContext)
 
     //Carousel
 
@@ -24,6 +30,7 @@ export default function Home() {
 
 
     useEffect(() => {
+        setSearchv(search)
         setLoading(true)
         const getProduct = async () => {
             await axios.get(`https://pixabay.com/api/?key=43296772-7f7bc3909372636d0ba9a5d78&page=${count}&per_page=20`).then(result => {
@@ -55,7 +62,7 @@ export default function Home() {
                     <h2 className={style.subtitle}>A simple API store</h2>
                 </div>
                 <div className={style.inputHead}>
-                    <input className={style.input} id='searchBar' type="text" />
+                    <input className={style.input} id='searchBar' onChange={e=>{setSearch(e.target.value)}} type="text" />
                     <button className={style.button} type='submit'>Search</button>
                 </div>
             </header>

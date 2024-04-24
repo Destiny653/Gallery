@@ -17,7 +17,7 @@ export default function Category() {
             }).catch(err => console.log(err));
         };
         getProduct()
-    }, [count,products]);
+    }, [count, products]);
 
     return (
         <>
