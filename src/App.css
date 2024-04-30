@@ -4,3 +4,20 @@ body {
   box-sizing: border-box;
   font-family: Poppins;
 }
+.loading::after {
+  content: '';
+  position: relative;
+  background-color: red !important;
+  width: 100%;
+  height: 100px;
+  z-index: 100;
+}
+
+.loaded::after{
+  content: '';
+  position: relative;
+  background-color: red !important;
+  width: 100%;
+  height: 100px;
+  z-index: 100;
+}
