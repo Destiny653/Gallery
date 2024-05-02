@@ -1,8 +1,9 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { Suspense, useContext, useEffect, useState } from 'react'
 import style from './css/Main.module.css'
 import axios from 'axios'
 import { Link, useParams } from 'react-router-dom';
 import '../App.css'
+import Loading from '../Loading';
 
 
 
@@ -63,17 +64,19 @@ export default function Home() {
                 <div className={style.product}>
                     {
                         products.hits?.map(product => (
-                            <div className={loading ? 'loading' : 'loaded'}>
-                                <div className={style.productCard} key={product.id}>
-                                    <Link to={`/products/${product.id}`}>
-                                        <img className={style.productImg} src={product.webformatURL} alt={product.tags} width="100%" height="100%" />
-                                    </Link>
-                                </div>
-                                <div className={style.userDetail}>
-                                    <img className={style.userImg} src={product.userImageURL} alt="***" />
-                                    <h3 className={style.tags}>{product.tags}</h3>
-                                </div>
-                            </div>
+                            <Suspense fallback={<Loading />}>
+                                <>
+                                    <div className={style.productCard} key={product.id}>
+                                        <Link to={`/products/${product.id}`}>
+                                            <img className={style.productImg} src={product.webformatURL} alt={product.tags} width="100%" height="100%" />
+                                        </Link>
+                                    </div>
+                                    <div className={style.userDetail}>
+                                        <img className={style.userImg} src={product.userImageURL} alt="***" />
+                                        <h3 className={style.tags}>{product.tags}</h3>
+                                    </div>
+                                </>
+                            </Suspense>
                         ))
                     }
                 </div>
