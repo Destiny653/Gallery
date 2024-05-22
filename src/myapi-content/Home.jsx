@@ -39,7 +39,7 @@ export default function Home() {
                     <h2 className={style.subtitle}>A simple API store</h2>
                 </div>
                 <div className={style.inputHead}>
-                    <input className={style.input} id='searchBar' onChange={e => { setSearch(e.target.value) }} type="text" />
+                    <input className={style.input} id='searchBar' type="text" />
                     <button className={style.button} type='submit'>Search</button>
                 </div>
             </header>
