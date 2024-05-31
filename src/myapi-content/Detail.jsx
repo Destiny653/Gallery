@@ -54,7 +54,7 @@ export default function Detail() {
             </header>
 
             <div className={style.iterate}>
-                <button className={style.btnIterate} onClick={() => count <= 1 ? setCount(1) : setCount(count - 1)}>prev</button> page {count}/25 <button className={style.btnIterate} onClick={() => setCount(count + 1)}>next</button>
+                <button className={style.btnIterate} onClick={() => count <= 1 ? setCount(1) : setCount(count - 1)}>prev</button> page {count}/25 <button className={style.btnIterate} onClick={() => setCount(count == 20 ? 20 : count + 1)}>next</button>
             </div>
 
             <div className={style.product}>

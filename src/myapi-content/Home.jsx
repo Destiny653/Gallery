@@ -44,15 +44,15 @@ export default function Home() {
                     <h2 className={style.subtitle}>A simple API store</h2>
                 </div>
                 <div className={style.inputHead}>
-                    <input value={searchInput} className={style.input} id='searchBar' type="text" autoComplete='true' placeholder='Input search...' onChange={(e)=> setSearchInput(e.target.value)} />
+                    <input value={searchInput} className={`${style.input}`} id='searchBar' type="text" autoComplete='true' placeholder='Input search...' onChange={(e)=> setSearchInput(e.target.value)} />
                     <button className={style.button} type='submit' onClick={()=>searchInput}>Search</button>
                 </div>
             </header>
             <div className={style.btnLoop}>
                 {
-                    category.map((cat) => {
+                    category.map((cat, index) => {
                         return (
-                            <div className={style.btnLoopChild} key={cat}>
+                            <div className={style.btnLoopChild} key={index}>
                                 <Link to={`/category/${cat}`}>
                                     <button className={style.btnOpt} >{cat}</button>
                                 </Link>
@@ -63,7 +63,7 @@ export default function Home() {
             </div>
             <div>
                 <div className={style.iterate}>
-                    <button className={style.btnIterate} onClick={() => count <= 1 ? setCount(1) : setCount(count - 1)}>prev</button> page {count}/{qty} <button className={style.btnIterate} onClick={() => setCount(count + 1)}>next</button>
+                    <button className={style.btnIterate} onClick={() => count <= 1 ? setCount(1) : setCount(count - 1)}>prev</button> page {count}/{qty} <button className={style.btnIterate} onClick={() => setCount(count == 20 ? 20 : count + 1)}>next</button>
                     {/* <button onClick={() => count2 <= 0 ? setCount2(0) : setCount2(count2 - 1)}>Prev</button> {list} arrey: {count2} <button onClick={() => setCount2(count2 + 1)}>Next</button> */}
                 </div>
                 <div className={style.product}>
