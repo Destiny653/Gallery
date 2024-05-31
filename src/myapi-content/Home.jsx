@@ -11,7 +11,7 @@ export default function Home() {
 
     const [products, setProduct] = useState([]);
     const [count, setCount] = useState(1);
-    // const [carousel, setCarousel] = useState();
+    const [searchInput, setSearchInput] = useState(" ")
     const [loading, setLoading] = useState(false)
 
 
@@ -19,15 +19,20 @@ export default function Home() {
     useEffect(() => {
         setLoading(true)
         const getProduct = async () => {
-            await axios.get(`https://pixabay.com/api/?key=43296772-7f7bc3909372636d0ba9a5d78&page=${count}&per_page=20`).then(result => {
+            await axios.get(`https://pixabay.com/api/?key=43296772-7f7bc3909372636d0ba9a5d78&q=${searchInput}&page=${count}&per_page=20`).then(result => {
                 setProduct(result.data || [])
             }).then(() => setLoading(false)).catch(err => console.log(err));
         };
         getProduct()
 
-    }, [count, loading]);
+    }, [count, searchInput, loading]);
     console.table(products);
 
+    let qty = products.hits?.length
+    console.log(qty);
+    
+
+ 
     const category = ["backgrounds", "fashion", "nature", "science", "education", "feelings", "health", "people", "religion", "places", "animals", "industry", "computer", "food", "sports", "transportation", "travel", "buildings", "business", "music"];
 
     return (
@@ -39,8 +44,8 @@ export default function Home() {
                     <h2 className={style.subtitle}>A simple API store</h2>
                 </div>
                 <div className={style.inputHead}>
-                    <input className={style.input} id='searchBar' type="text" />
-                    <button className={style.button} type='submit'>Search</button>
+                    <input value={searchInput} className={style.input} id='searchBar' type="text" autoComplete='true' placeholder='Input search...' onChange={(e)=> setSearchInput(e.target.value)} />
+                    <button className={style.button} type='submit' onClick={()=>searchInput}>Search</button>
                 </div>
             </header>
             <div className={style.btnLoop}>
@@ -58,7 +63,7 @@ export default function Home() {
             </div>
             <div>
                 <div className={style.iterate}>
-                    <button className={style.btnIterate} onClick={() => count <= 1 ? setCount(1) : setCount(count - 1)}>prev</button> page {count}/25 <button className={style.btnIterate} onClick={() => setCount(count + 1)}>next</button>
+                    <button className={style.btnIterate} onClick={() => count <= 1 ? setCount(1) : setCount(count - 1)}>prev</button> page {count}/{qty} <button className={style.btnIterate} onClick={() => setCount(count + 1)}>next</button>
                     {/* <button onClick={() => count2 <= 0 ? setCount2(0) : setCount2(count2 - 1)}>Prev</button> {list} arrey: {count2} <button onClick={() => setCount2(count2 + 1)}>Next</button> */}
                 </div>
                 <div className={style.product}>
